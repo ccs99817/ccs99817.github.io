@@ -26,7 +26,14 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+  mounted () {
+    	axios.get('https://api.github.com/repos/IniZio/scribbles/contents/posts')
+        	.then(function (result) {
+          		const posts = result.data
+                console.table(posts)
+        	})
+    }
 }
 </script>
 
