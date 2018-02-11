@@ -19,7 +19,7 @@
     <h2>Posts</h2>
     <ul>
       <li v-for="post in posts">
-        <a v-bind:href="post[1]">{{post[0]}}</a>
+        {{post[0]}}
       </li>
     </ul>
   </div>
