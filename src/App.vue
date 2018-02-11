@@ -16,6 +16,12 @@
       <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
+    <h2>Posts</h2>
+    <ul>
+      <li v-for="post in posts">
+        <a v-bind:href="post[1]">{{post[0]}}</a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -25,14 +31,23 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      posts: []
     }
   },
   mounted () {
     	axios.get('https://api.github.com/repos/IniZio/scribbles/contents/posts')
-        	.then(function (result) {
-          		const posts = result.data
-                console.table(posts)
+        	.then(result=> {
+            const posts = result.data
+            console.table(posts)
+            const length = posts.length
+            const domainUrl = 'https://inizio.github.io/post/'
+            for(var i=0; i<length;i++){
+              var postName = posts[i].name
+              var postUrl = domainUrl + posts[i].sha
+              this.posts[i] = [postName, postUrl]
+              console.log(this.posts[i])
+            }
         	})
     }
 }
